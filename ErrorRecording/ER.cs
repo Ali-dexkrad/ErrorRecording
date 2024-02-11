@@ -30,9 +30,12 @@ namespace ErrorRecording
             string dateTimeString = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             string newText = ErrorCode + " ; " + dateTimeString + " ; " + Section + " ; " + Message;
             ChechPath();
-            StreamWriter writer = File.AppendText(path+"\\er.txt");
-            writer.WriteLine();
-            writer.WriteLine(newText);
+            using (StreamWriter sw = File.AppendText(path + "\\er.txt"))
+            {
+                sw.WriteLine();
+                sw.WriteLine(newText);
+            }
+         
         }
         private void ChechPath()
         {
@@ -42,7 +45,7 @@ namespace ErrorRecording
             }
             if (!File.Exists(path+"\\er.txt"))
             {
-                File.Create(path+"\\er.txt");
+                File.Create(path+"\\er.txt");              
             }
 
         }
